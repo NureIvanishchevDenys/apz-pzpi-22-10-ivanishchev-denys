@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: water-quality-backend
+  labels:
+    app: water-quality-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: water-quality-backend
+  template:
+    metadata:
+      labels:
+        app: water-quality-backend
+    spec:
+      containers:
+        - name: water-quality-backend
+          image: water-quality-backend:v16
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_HOST
+              value: postgres-db-service
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: waterqualitymonitoring
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASSWORD
+              value: oblepiha
